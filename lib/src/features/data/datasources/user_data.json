@@ -1,0 +1,53 @@
+[
+    {
+      "username": "john_doe",
+      "email": "john.doe@example.com",
+      "password": "Pass123!"
+    },
+    {
+      "username": "alice_wonder",
+      "email": "alice.wonder@example.com",
+      "password": "Alice@2024"
+    },
+    {
+      "username": "bob_smith",
+      "email": "bob.smith@example.com",
+      "password": "Bob_9876"
+    },
+    {
+      "username": "charlie_brown",
+      "email": "charlie.brown@example.com",
+      "password": "Charlie#001"
+    },
+    {
+      "username": "diana_ross",
+      "email": "diana.ross@example.com",
+      "password": "DianaSecure!"
+    },
+    {
+      "username": "ethan_hawk",
+      "email": "ethan.hawk@example.com",
+      "password": "EthanHawk99"
+    },
+    {
+      "username": "frank_castle",
+      "email": "frank.castle@example.com",
+      "password": "Punisher_123"
+    },
+    {
+      "username": "grace_lee",
+      "email": "grace.lee@example.com",
+      "password": "GraceLee@456"
+    },
+    {
+      "username": "harry_potter",
+      "email": "harry.potter@example.com",
+      "password": "Hogwarts2024"
+    },
+    {
+      "username": "isabella_swan",
+      "email": "isabella.swan@example.com",
+      "password": "Twilight_789"
+    }
+  ]
+  

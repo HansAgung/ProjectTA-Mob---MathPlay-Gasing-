@@ -1,0 +1,23 @@
+{
+    "characters": [
+      {
+        "nama_character": "Timo",
+        "kisah_character": "Timo adalah anak yang penuh rasa ingin tahu dan suka bereksperimen. Ia selalu mencari cara baru untuk menyelesaikan masalah.",
+        "character_motto": "Tak ada yang tak bisa, kalau kita mau coba!",
+        "character_img": "assets/images/character-01.png"
+      },
+      {
+        "nama_character": "Meta",
+        "kisah_character": "Meta adalah gadis yang ceria dan suka berpetualang. Ia senang mengeksplorasi dunia di sekitarnya dengan penuh semangat.",
+        "character_motto": "Dunia ini luas, ayo kita jelajahi!",
+        "character_img": "assets/images/character-02.png"
+      },
+      {
+        "nama_character": "Krik",
+        "kisah_character": "Krik adalah anak yang lucu dan suka membantu teman-temannya. Ia selalu membawa tawa dan keceriaan di mana pun ia berada.",
+        "character_motto": "Senyum dan tawa adalah kekuatan kita!",
+        "character_img": "assets/images/character-03.png"
+      }
+    ]
+  }
+  
