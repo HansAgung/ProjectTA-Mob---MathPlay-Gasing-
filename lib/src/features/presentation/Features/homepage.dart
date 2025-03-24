@@ -74,7 +74,7 @@ class _HomepageState extends State<Homepage> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          "Welcome, $username!",
+                          "Selamat Datang, $username!",
                           style: const TextStyle(
                             fontSize: 20,
                             fontFamily: 'Poppins-Bold',
