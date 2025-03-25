@@ -33,3 +33,7 @@ Pastikan Anda memiliki **Git** terinstal, lalu jalankan perintah berikut di term
 ```bash
 git clone https://github.com/your-username/mathplay-gasing.git
 cd mathplay-gasing
+
+### 1️⃣ Install Dependencies
+```bash
+flutter pub get
