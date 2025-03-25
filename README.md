@@ -33,9 +33,26 @@ Pastikan Anda memiliki **Git** terinstal, lalu jalankan perintah berikut di term
 ```bash
 git clone https://github.com/your-username/mathplay-gasing.git
 cd mathplay-gasing
-
-bash```
+```
 
 ### 1️⃣ Install Dependencies
 ```bash
 flutter pub get
+```
+
+### 1️⃣ Setup Environment
+```bash
+API_BASE_URL=http://your-backend-url.com/api
+```
+
+### 1️⃣ Jalankan Aplikasi
+```bash
+flutter run
+```
+
+### 1️⃣ Build Apk
+```bash
+flutter build apk --release
+```
+
+
