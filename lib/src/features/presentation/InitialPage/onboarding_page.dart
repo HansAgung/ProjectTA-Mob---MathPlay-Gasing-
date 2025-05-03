@@ -57,7 +57,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         duration: const Duration(milliseconds: 300),
         curve: Curves.easeInOut,
       );
-    } else {
+    } else {  
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => LoginPage()),

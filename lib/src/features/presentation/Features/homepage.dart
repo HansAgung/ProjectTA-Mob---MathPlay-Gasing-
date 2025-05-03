@@ -1,185 +1,247 @@
 import 'package:flutter/material.dart';
-import 'package:mathgasing_v1/src/features/presentation/Authentication/login_page.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:mathgasing_v1/src/shared/Components/buttom_navbar_custom.dart';
 import 'package:mathgasing_v1/src/shared/Utils/app_colors.dart';
+import 'package:percent_indicator/percent_indicator.dart';
+
+import '../../../core/constants/app_images.dart';
+import '../../../shared/Components/header_homepage.dart';
+import '../../../shared/Components/search_bar_custom.dart';
+import '../../data/models/quest_model.dart';
+import '../../data/repository/quest_repository.dart';
+import '../../../shared/Components/quest_progress_card.dart';  // Import komponen QuestProgressCard
 
 class Homepage extends StatefulWidget {
   const Homepage({super.key});
 
   @override
-  _HomepageState createState() => _HomepageState();
+  State<Homepage> createState() => _HomepageState();
 }
 
 class _HomepageState extends State<Homepage> {
-  String fullName = "";
-  String username = "";
-  String email = "";
-  String birthDate = "";
-  String gender = "";
-  String character = "";
+  final TextEditingController _searchController = TextEditingController();
+  final ScrollController _scrollController = ScrollController();
+  final QuestRepository _repo = QuestRepository();
+
+  List<QuestModel> _quests = [];
+  bool _isLoading = false;
+  bool _hasMore = true;
+  int _currentPage = 1;
+  final int _pageSize = 10;
 
   @override
   void initState() {
     super.initState();
-    _loadUserData();
+    _fetchQuests();
+    _scrollController.addListener(_onScroll);
   }
 
-  Future<void> _loadUserData() async {
-    final prefs = await SharedPreferences.getInstance();
-    setState(() {
-      fullName = prefs.getString('fullName') ?? "Tidak ditemukan";
-      username = prefs.getString('username') ?? "Tidak ditemukan";
-      email = prefs.getString('email') ?? "Tidak ditemukan";
-      birthDate = prefs.getString('birthDate') ?? "Tidak ditemukan";
-      gender = prefs.getString('gender') ?? "Tidak ditemukan";
-      character = prefs.getString('character') ?? "";
-    });
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
   }
 
-  Future<void> _logout() async {
-    Navigator.pushAndRemoveUntil(
-      context,
-      MaterialPageRoute(builder: (context) => LoginPage()),
-      (route) => false,
-    );
+  Future<void> _fetchQuests() async {
+    if (_isLoading || !_hasMore) return;
+
+    setState(() => _isLoading = true);
+
+    try {
+      final quests = await _repo.fetchQuestList(page: _currentPage, pageSize: _pageSize);
+
+      setState(() {
+        _quests.addAll(quests);
+        _isLoading = false;
+        _currentPage++;
+        if (quests.length < _pageSize) {
+          _hasMore = false;
+        }
+      });
+    } catch (e) {
+      print('❌ Error fetching quests: $e');
+      setState(() => _isLoading = false);
+    }
+  }
+
+  void _onScroll() {
+    if (_scrollController.position.pixels >= _scrollController.position.maxScrollExtent - 100) {
+      _fetchQuests();
+    }
   }
 
   @override
   Widget build(BuildContext context) {
+    final double screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
-      body: Stack(
-        children: [
-          // 🔹 Background
-          Container(
-            width: double.infinity,
-            height: double.infinity,
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                colors: [AppColors.primaryColor, AppColors.thirdColor],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
+      backgroundColor: Colors.transparent,
+      body: SafeArea(
+        child: Stack(
+          children: [
+            Container(color: Colors.white),
+
+            // Background Pattern
+            SizedBox(
+              height: screenHeight / 2,
+              width: double.infinity,
+              child: Image.asset(
+                AppImages.PATTERN_FIRST,
+                fit: BoxFit.cover,
               ),
             ),
-          ),
 
-          // 🔹 Konten utama (Scrollable)
-          SafeArea(
-            child: SingleChildScrollView(
+            // Scrollable content
+            SingleChildScrollView(
+              controller: _scrollController,
+              padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // 🔹 AppBar Custom
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                  const HeaderHomepage(username: "Atalya Saragih"),
+                  const SizedBox(height: 20),
+
+                  // Title
+                  const Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Pembelajaran mu",
+                            style: TextStyle(
+                              color: AppColors.primaryColor,
+                              fontSize: 20,
+                              fontFamily: 'Poppins-SemiBold',
+                            ),
+                          ),
+                          Text(
+                            "Ayo mulai petualanganmu!!",
+                            style: TextStyle(
+                              color: AppColors.fontDescColor,
+                              fontSize: 12,
+                              fontFamily: 'Poppins-Light',
+                            ),
+                          ),
+                        ],
+                      ),
+                      Text(
+                        "Lihat Semua",
+                        style: TextStyle(
+                          color: AppColors.fontDescColor,
+                          fontSize: 10,
+                          fontFamily: 'Poppins-Light',
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  const SizedBox(height: 16),
+
+                  // Progress Card
+                  Container(
+                    height: screenHeight / 6.5,
+                    width: double.infinity,
+                    margin: const EdgeInsets.only(bottom: 20),
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(16),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.05),
+                          blurRadius: 8,
+                          offset: const Offset(0, 4),
+                        ),
+                      ],
+                    ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          "Selamat Datang, $username!",
-                          style: const TextStyle(
-                            fontSize: 20,
-                            fontFamily: 'Poppins-Bold',
-                            color: Colors.white,
+                        // Left Text
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: const [
+                              Text(
+                                "Progress Capaianmu",
+                                style: TextStyle(
+                                  color: AppColors.primaryColor,
+                                  fontSize: 22,
+                                  fontFamily: 'Poppins-SemiBold',
+                                ),
+                              ),
+                              SizedBox(height: 8),
+                              Text(
+                                "Lanjutkan progressmu hari ini",
+                                style: TextStyle(
+                                  color: AppColors.fontDescColor,
+                                  fontSize: 12,
+                                  fontFamily: 'Poppins-Light',
+                                ),
+                              ),
+                            ],
                           ),
                         ),
-                        IconButton(
-                          icon: const Icon(Icons.logout, color: Colors.white, size: 30),
-                          onPressed: _logout,
-                        ),
-                      ],
-                    ),
-                  ),
 
-                  const SizedBox(height: 20),
-
-                  // 🔹 Gambar Karakter
-                  if (character.isNotEmpty)
-                    CircleAvatar(
-                      radius: 60,
-                      backgroundImage: AssetImage(character),
-                      backgroundColor: Colors.white,
-                    ),
-
-                  const SizedBox(height: 20),
-
-                  // 🔹 Card Informasi Pengguna
-                  Container(
-                    width: double.infinity,
-                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                    decoration: const BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(30),
-                        topRight: Radius.circular(30),
-                      ),
-                    ),
-                    child: Column(
-                      children: [
-                        _buildUserInfo("👤 Nama Lengkap", fullName),
-                        _buildUserInfo("🔹 Username", username),
-                        _buildUserInfo("📧 Email", email),
-                        _buildUserInfo("🎂 Tanggal Lahir", birthDate),
-                        _buildUserInfo("🚻 Gender", gender),
-
-                        const SizedBox(height: 20),
-
-                        // 🔹 Tombol Logout
-                        ElevatedButton(
-                          onPressed: _logout,
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: AppColors.primaryColor,
-                            padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 40),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(30),
-                            ),
-                          ),
-                          child: const Text(
-                            "Logout",
+                        // Circular Progress
+                        CircularPercentIndicator(
+                          radius: 45.0,
+                          lineWidth: 8.0,
+                          percent: 0.75,
+                          backgroundColor: Colors.grey.shade300,
+                          progressColor: AppColors.primaryColor,
+                          circularStrokeCap: CircularStrokeCap.round,
+                          center: const Text(
+                            "75%",
                             style: TextStyle(
+                              fontWeight: FontWeight.bold,
                               fontSize: 16,
-                              fontFamily: 'Poppins-Bold',
-                              color: Colors.white,
                             ),
                           ),
                         ),
-
-                        const SizedBox(height: 40), // Memberikan ruang ekstra di bagian bawah
                       ],
                     ),
                   ),
+
+                  // Search Bar
+                  SearchBarCustom(
+                    controller: _searchController,
+                    onChanged: (value) {},
+                  ),
+
+                  const SizedBox(height: 20),
+
+                  // Quest List
+                  ListView.builder(
+                    itemCount: _quests.length + (_hasMore ? 1 : 0),
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemBuilder: (context, index) {
+                      if (index >= _quests.length) {
+                        return const Center(child: Padding(
+                          padding: EdgeInsets.symmetric(vertical: 16),
+                          child: CircularProgressIndicator(),
+                        ));
+                      }
+
+                      final quest = _quests[index];
+
+                      return QuestProgressCard(
+                        idQuest: quest.idQuest,
+                        titleQuest: quest.titleQuest,
+                        imageUrl: quest.imgCardQuest,
+                        progress: quest.progress, // Pastikan ini dalam range 0.0 - 1.0
+                      );
+                    },
+                  ),
+
+                  const SizedBox(height: 80), // space for bottom navbar
                 ],
               ),
             ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  // 🔹 Widget untuk menampilkan informasi pengguna
-  Widget _buildUserInfo(String title, String value) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8),
-      child: Card(
-        elevation: 3,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-        child: ListTile(
-          leading: Icon(Icons.info, color: AppColors.primaryColor),
-          title: Text(
-            title,
-            style: const TextStyle(
-              fontSize: 16,
-              fontFamily: 'Poppins-SemiBold',
-              color: Colors.black,
-            ),
-          ),
-          subtitle: Text(
-            value,
-            style: const TextStyle(
-              fontSize: 14,
-              fontFamily: 'Poppins-Regular',
-              color: Colors.black54,
-            ),
-          ),
+          ],
         ),
       ),
     );

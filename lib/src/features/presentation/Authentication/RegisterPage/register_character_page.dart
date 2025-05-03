@@ -9,6 +9,8 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class RegisterCharacterPage extends StatefulWidget {
+  const RegisterCharacterPage({super.key});
+
   @override
   _RegisterCharacterPageState createState() => _RegisterCharacterPageState();
 }

@@ -1,8 +1,10 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
+import 'package:mathgasing_v1/src/core/helper/global.dart';
 import 'package:mathgasing_v1/src/features/data/repository/user_database_repository.dart';
 import 'package:mathgasing_v1/src/features/presentation/Authentication/RegisterPage/register_gender_page.dart';
-import 'package:mathgasing_v1/src/features/presentation/Features/homepage.dart';
+import 'package:mathgasing_v1/src/features/presentation/Features/main_wrapper_page.dart';
 import 'package:mathgasing_v1/src/shared/Components/alert_failed_custom.dart';
 import 'package:mathgasing_v1/src/shared/Utils/app_colors.dart';
 import 'package:mathgasing_v1/src/shared/Components/custom_textfield.dart';
@@ -20,7 +22,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final UserRepository _userRepository = UserRepository(); // 🔹 Tambahkan UserRepository
+  final UserRepository _userRepository = UserRepository(); 
   String? _emailError;
   bool _showAlert = false;
 
@@ -55,28 +57,59 @@ class _LoginPageState extends State<LoginPage> {
       return;
     }
 
-    // 🔹 Ambil data dari SharedPreferences menggunakan UserRepository
-    Map<String, String?> userData = await _userRepository.getUserData();
-    String? storedEmail = userData['email'];
-    String? storedPassword = userData['password'];
+    // Endpoint API dan parameter query
+    
+    final url = '$baseAPI/api/mock-login?email=$enteredEmail&password=$enteredPassword';
 
-    // 🔍 Print data untuk debugging
-    print("🔍 Data dari SharedPreferences sebelum login:");
-    print("Stored Email: $storedEmail");
-    print("Stored Password: $storedPassword");
+    try {
+      final response = await http.get(Uri.parse(url));
 
-    print("🔍 Data yang diinput oleh user:");
-    print("Entered Email: $enteredEmail");
-    print("Entered Password: $enteredPassword");
+      if (response.statusCode == 200) {
+        // Jika response berhasil, tampilkan data hasil request
+        final Map<String, dynamic> data = json.decode(response.body);
+        print('Response API: ${data.toString()}');
 
-    if (enteredEmail == storedEmail && enteredPassword == storedPassword) {
-      print("✅ Login berhasil!");
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => const Homepage()),
-      );
-    } else {
-      print("❌ Login gagal: Email atau Password salah!");
+        // Cek apakah data users ditemukan
+        var users = data['users'] as List;
+        if (users.isNotEmpty) {
+          var user = users[0]; // Misalnya memilih user pertama
+          print("User ditemukan: ${user['fullname']}");
+
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const MainWrapperPage()),
+          );
+        } else {
+          print("❌ Email atau password tidak cocok!");
+          setState(() {
+            _showAlert = true;
+          });
+
+          Future.delayed(const Duration(seconds: 3), () {
+            if (mounted) {
+              setState(() {
+                _showAlert = false;
+              });
+            }
+          });
+        }
+      } else {
+        print('❌ Error saat menghubungi server: ${response.statusCode}');
+        setState(() {
+          _showAlert = true;
+        });
+
+        Future.delayed(const Duration(seconds: 3), () {
+          if (mounted) {
+            setState(() {
+              _showAlert = false;
+            });
+          }
+        });
+      }
+    } catch (e) {
+      // Tangani error yang mungkin terjadi
+      print('❌ Terjadi error: $e');
       setState(() {
         _showAlert = true;
       });
@@ -174,7 +207,7 @@ class _LoginPageState extends State<LoginPage> {
                     alignment: Alignment.centerRight,
                     child: TextButton(
                       onPressed: () {
-                        Navigator.push(
+                        Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(builder: (context) => const ForgetPasswordPage()),
                         );

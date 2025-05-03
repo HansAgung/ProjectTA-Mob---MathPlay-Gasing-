@@ -9,6 +9,8 @@ import 'register_provider.dart';
 import 'register_user_data_page.dart';
 
 class RegisterGenderPage extends StatelessWidget {
+  const RegisterGenderPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<RegisterProvider>(context);
@@ -73,7 +75,7 @@ class RegisterGenderPage extends StatelessWidget {
                     : ButtonSecondaryCustom(
                         text: "Selanjutnya",
                         onPressed: () {
-                          Navigator.push(
+                          Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
                               builder: (context) => RegisterUserDataPage(),

@@ -10,6 +10,8 @@ import 'register_provider.dart';
 import 'register_character_page.dart';
 
 class RegisterUserDataPage extends StatefulWidget {
+  const RegisterUserDataPage({super.key});
+
   @override
   _RegisterUserDataPageState createState() => _RegisterUserDataPageState();
 }
@@ -224,7 +226,7 @@ class _RegisterUserDataPageState extends State<RegisterUserDataPage> {
         password: passwordController.text,
       );
 
-      Navigator.push(
+      Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => RegisterCharacterPage()),
       );

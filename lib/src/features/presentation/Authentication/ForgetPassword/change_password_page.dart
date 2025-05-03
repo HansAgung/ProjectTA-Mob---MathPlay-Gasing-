@@ -11,11 +11,11 @@ class ChangePasswordPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
-    final TextEditingController _passwordController = TextEditingController();
-     final TextEditingController _confirmPasswordController = TextEditingController();
+    final TextEditingController passwordController = TextEditingController();
+     final TextEditingController confirmPasswordController = TextEditingController();
 
     @override
-    void _goToLoginPage() {
+    void goToLoginPage() {
       Navigator.pushReplacement(context, 
       MaterialPageRoute(builder: (context) => const LoginPage()),
       );
@@ -86,9 +86,9 @@ class ChangePasswordPage extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 30),
-                  CustomPasswordField(hintText: 'Masukan Password baru', controller: _passwordController),
+                  CustomPasswordField(hintText: 'Masukan Password baru', controller: passwordController),
                   const SizedBox(height: 15),
-                  CustomPasswordField(hintText: 'Konfirmasi Password baru', controller: _confirmPasswordController),
+                  CustomPasswordField(hintText: 'Konfirmasi Password baru', controller: confirmPasswordController),
                   const Spacer(),
                   TermsCheckbox(
                     onChanged: (isChecked) {
@@ -96,7 +96,7 @@ class ChangePasswordPage extends StatelessWidget {
                     },
                   ),
                   const SizedBox(height: 10),
-                  ButtonPrimaryCustom(text: 'Ubah Password', onPressed: _goToLoginPage),
+                  ButtonPrimaryCustom(text: 'Ubah Password', onPressed: goToLoginPage),
                 ],
               ),
             ),
