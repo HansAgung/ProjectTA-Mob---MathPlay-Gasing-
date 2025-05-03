@@ -1,16 +1,58 @@
-# mathgasing_v1
+# 📘 MathPlay Gasing  
 
-A new Flutter project.
+## 📌 Deskripsi  
+**MathPlay Gasing** adalah aplikasi pembelajaran matematika interaktif berbasis **Flutter**, yang dirancang untuk anak-anak SD (kelas 1-6). Aplikasi ini mengadopsi metode **Gasing (Gampang, Asyik, dan Menyenangkan)** serta menerapkan **gamifikasi** agar anak-anak dapat belajar matematika dengan cara yang lebih menyenangkan.  
 
-## Getting Started
+Aplikasi ini dikembangkan oleh **ToluTech Studio**, sebuah startup yang fokus pada pengembangan produk digital di bidang pendidikan.  
 
-This project is a starting point for a Flutter application.
+---
 
-A few resources to get you started if this is your first Flutter project:
+## ✨ Fitur Utama  
+✔️ **Video Pembelajaran** - Materi disajikan dalam bentuk video menarik.  
+✔️ **Materi Pembelajaran** - Konsep matematika yang mudah dipahami.  
+✔️ **Quiz & Soal** - Tantangan soal interaktif untuk meningkatkan pemahaman.  
+✔️ **Pemilihan Karakter** - Anak-anak dapat memilih karakter favorit mereka.  
+✔️ **Leaderboard & Reward** - Memberikan motivasi dengan sistem poin dan hadiah.  
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+---
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## 🛠️ Teknologi yang Digunakan  
+- **Frontend (Mobile App)**: Flutter  
+- **Backend API**: Laravel  
+- **Database**: MySQL  
+- **State Management**: Provider  
+- **Local Storage**: SharedPreferences  
+
+---
+
+## 📥 Cara Install & Menjalankan Aplikasi  
+
+### 1️⃣ Clone Repository  
+Pastikan Anda memiliki **Git** terinstal, lalu jalankan perintah berikut di terminal:  
+
+```bash
+git clone https://github.com/your-username/mathplay-gasing.git
+cd mathplay-gasing
+```
+
+### 1️⃣ Install Dependencies
+```bash
+flutter pub get
+```
+
+### 1️⃣ Setup Environment
+```bash
+API_BASE_URL=http://your-backend-url.com/api
+```
+
+### 1️⃣ Jalankan Aplikasi
+```bash
+flutter run
+```
+
+### 1️⃣ Build Apk
+```bash
+flutter build apk --release
+```
+
+
