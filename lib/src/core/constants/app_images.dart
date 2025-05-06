@@ -5,4 +5,7 @@ class AppImages {
   static const String QUEST_IMG_1 = "assets/images/asset_quest_1.png";
   static const String MODULE_IMG_1 = "assets/images/module_card_img.png";
   static const String LESSON_IMG_1 = "assets/images/Quest_challange_card.png";
+  static const String LEADERBOARD_IMG_1 = "assets/images/asset_leaderboard_img.png"; 
+  static const String PROFILE_IMG_BG = "assets/images/profile_card_img.png"; 
+  static const String ARTEFAK_IMG_BG = "assets/images/asset_artefak_img.png";
 }

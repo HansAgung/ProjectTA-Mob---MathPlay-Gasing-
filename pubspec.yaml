@@ -83,6 +83,9 @@ flutter:
     - assets/images/module_card_img.png 
     - assets/images/lesson_card_img.png
     - assets/images/Quest_challange_card.png
+    - assets/images/asset_leaderboard_img.png 
+    - assets/images/profile_card_img.png
+    - assets/images/asset_artefak_img.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

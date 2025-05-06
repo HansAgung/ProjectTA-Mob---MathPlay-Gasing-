@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:mathgasing_v1/src/shared/Components/search_bar_custom.dart';
-import 'package:mathgasing_v1/src/shared/Components/quest_progress_card.dart';
+import 'package:mathgasing_v1/src/features/presentation/Features/Artefact/artefak_module_page.dart';
+import 'package:mathgasing_v1/src/shared/Components/artefact_progress_card.dart';
 import 'package:mathgasing_v1/src/shared/Utils/app_colors.dart';
+import '../../../../shared/Components/search_bar_custom.dart';
 import '../../../data/models/quest_model.dart';
 import '../../../data/repository/quest_repository.dart';
-import 'quest_module_page.dart';
 
-class QuestPage extends StatefulWidget {
-  const QuestPage({super.key});
+class ArtefakPage extends StatefulWidget {
+  const ArtefakPage({super.key});
 
   @override
-  State<QuestPage> createState() => _QuestPageState();
+  State<ArtefakPage> createState() => _ArtefakPageState();
 }
 
-class _QuestPageState extends State<QuestPage> {
+class _ArtefakPageState extends State<ArtefakPage> {
   final TextEditingController controller = TextEditingController();
   List<QuestModel> questList = [];
   bool isLoading = true;
@@ -44,7 +44,7 @@ class _QuestPageState extends State<QuestPage> {
             children: [
               const SizedBox(height: 24),
               const Text(
-                "Progress Capaianmu",
+                "Artefak Pembelajaran",
                 style: TextStyle(
                   color: AppColors.primaryColor,
                   fontSize: 22,
@@ -74,20 +74,21 @@ class _QuestPageState extends State<QuestPage> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (_) => QuestModulePage(
+                                  builder: (_) => ArtefakModulePage(
                                     title: quest.titleQuest,
+                                    description: quest.questDesc,
                                     questModules: modules, 
                                      // Use the safely accessed modules
                                   ),
                                 ),
                               );
                             },
-                            child: QuestProgressCard(
-                              idQuest: quest.idQuest,
-                              titleQuest: quest.titleQuest,
-                              imageUrl: quest.imgCardQuest,
-                              progress: quest.progress,
+                            child: ArtefactProgressCard(
+                              idQuest: quest.idQuest, 
+                              titleQuest: quest.titleQuest, 
+                              descQuest: quest.questDesc ?? '', 
                             ),
+              
                           );
                         },
                       ).toList(),
@@ -95,7 +96,6 @@ class _QuestPageState extends State<QuestPage> {
             ],
           ),
         ),
-        bottomNavigationBar: const SizedBox(),
       ),
     );
   }

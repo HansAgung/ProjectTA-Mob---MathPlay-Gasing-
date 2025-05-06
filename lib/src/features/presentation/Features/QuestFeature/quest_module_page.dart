@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:mathgasing_v1/src/shared/Components/buttom_navbar_custom.dart';
 import 'package:mathgasing_v1/src/shared/Utils/app_colors.dart';
 import '../../../../core/constants/app_images.dart';
 import '../../../../shared/Components/card_module.dart';
 import '../../../../shared/Components/lesson_card.dart';
 import '../../../data/models/quest_module_model.dart';
-import '../../../data/models/lesson_quest_model.dart';
+import 'Test/flashcard_page.dart';
+import 'Test/input_test_page.dart';
+import 'Test/option_test_page.dart';
+import 'Test/subject_matter_page.dart';
 
 class QuestModulePage extends StatelessWidget {
   final String title;
@@ -134,9 +136,48 @@ class QuestModulePage extends StatelessWidget {
                                 (lesson) => Padding(
                                   padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                                   child: LessonCard(
-                                    title: lesson.titleLessonQuest,
-                                    description: lesson.questLessonDesc,
-                                  ),
+  title: lesson.titleLessonQuest,
+  description: lesson.questLessonDesc,
+  onTap: () {
+    switch (lesson.typeLessonQuest) {
+      case 0:
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (_) => OptionTestPage(idLessonQuest: lesson.idLessonQuest),
+          ),
+        );
+        break;
+      case 1:
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (_) => InputTestPage(idLessonQuest: lesson.idLessonQuest),
+          ),
+        );
+        break;
+      case 2:
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (_) => SubjectMatterPage(idLessonQuest: lesson.idLessonQuest),
+          ),
+        );
+        break;
+      case 3:
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (_) => FlashcardPage(idLessonQuest: lesson.idLessonQuest),
+          ),
+        );
+        break;
+      default:
+        // Optional: show a warning
+        break;
+    }
+  },
+),
                                 ),
                               ),
 

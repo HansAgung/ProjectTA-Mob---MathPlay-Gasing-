@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:mathgasing_v1/src/shared/Components/buttom_navbar_custom.dart';
 import 'package:mathgasing_v1/src/shared/Utils/app_colors.dart';
 import 'package:percent_indicator/percent_indicator.dart';
-
 import '../../../core/constants/app_images.dart';
 import '../../../shared/Components/header_homepage.dart';
 import '../../../shared/Components/search_bar_custom.dart';

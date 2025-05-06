@@ -37,7 +37,7 @@ class QuestProgressCard extends StatelessWidget {
             opacity: 0.8, 
           ),
           boxShadow: [
-            BoxShadow(
+            BoxShadow( 
               color: Colors.black12,
               blurRadius: 6,
               offset: Offset(0, 2),

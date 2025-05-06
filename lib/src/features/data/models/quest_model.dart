@@ -5,6 +5,7 @@ import 'lesson_quest_model.dart';
 class QuestModel {
   final int idQuest;
   final String titleQuest;
+  final String questDesc;
   final String imgCardQuest;
   final double progress; // Add this field
   final ModuleContent? moduleContent; // Add moduleContent
@@ -13,6 +14,7 @@ class QuestModel {
   QuestModel({
     required this.idQuest,
     required this.titleQuest,
+    required this.questDesc,
     required this.imgCardQuest,
     required this.progress,
     this.moduleContent, // Make moduleContent optional
@@ -23,6 +25,7 @@ class QuestModel {
     return QuestModel(
       idQuest: json['id_quest'] ?? 0, // Handle null values for idQuest
       titleQuest: json['title_quest'] ?? '', // Handle null values for titleQuest
+      questDesc: json['quest_desc'] ?? '', //Handle null value quest_desc
       imgCardQuest: json['img_card_quest'] ?? '', // Handle null values for imgCardQuest
       progress: (json['progress'] != null ? json['progress'].toDouble() : 0.0), // Ensure progress is parsed to double safely
       moduleContent: json['module_content'] != null
