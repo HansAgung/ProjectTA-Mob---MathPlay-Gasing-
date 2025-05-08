@@ -136,48 +136,48 @@ class QuestModulePage extends StatelessWidget {
                                 (lesson) => Padding(
                                   padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                                   child: LessonCard(
-  title: lesson.titleLessonQuest,
-  description: lesson.questLessonDesc,
-  onTap: () {
-    switch (lesson.typeLessonQuest) {
-      case 0:
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (_) => OptionTestPage(idLessonQuest: lesson.idLessonQuest),
-          ),
-        );
-        break;
-      case 1:
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (_) => InputTestPage(idLessonQuest: lesson.idLessonQuest),
-          ),
-        );
-        break;
-      case 2:
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (_) => SubjectMatterPage(idLessonQuest: lesson.idLessonQuest),
-          ),
-        );
-        break;
-      case 3:
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (_) => FlashcardPage(idLessonQuest: lesson.idLessonQuest),
-          ),
-        );
-        break;
-      default:
-        // Optional: show a warning
-        break;
-    }
-  },
-),
+                                    title: lesson.titleLessonQuest,
+                                    description: lesson.questLessonDesc,
+                                    onTap: () {
+                                      switch (lesson.typeLessonQuest) {
+                                        case 0:
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (_) => OptionTestPage(),
+                                            ),
+                                          );
+                                          break;
+                                        case 1:
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (_) => InputTestPage(idLessonQuest: lesson.idLessonQuest),
+                                            ),
+                                          );
+                                          break;
+                                        case 2:
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (_) => SubjectMatterPage(idLessonQuest: lesson.idLessonQuest),
+                                            ),
+                                          );
+                                          break;
+                                        case 3:
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (_) => FlashcardPage(idLessonQuest: lesson.idLessonQuest),
+                                            ),
+                                          );
+                                          break;
+                                        default:
+                                          // Optional: show a warning
+                                          break;
+                                      }
+                                    },
+                                  ),
                                 ),
                               ),
 

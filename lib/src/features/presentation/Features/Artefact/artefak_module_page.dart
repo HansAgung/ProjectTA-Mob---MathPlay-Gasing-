@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mathgasing_v1/src/features/data/models/quest_module_model.dart';
+import '../../../../core/helper/lesson_helper.dart';
 import '../../../../shared/Components/lesson_card.dart';
 import '../../../../shared/Components/search_bar_custom.dart';
 import '../../../../shared/Utils/app_colors.dart';
@@ -28,14 +29,25 @@ class _ArtefakModulePageState extends State<ArtefakModulePage> {
     final double cardHeight = MediaQuery.of(context).size.height / 6;
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          "Modul Pembelajaran",
-          style: TextStyle(color: Colors.white),
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(kToolbarHeight),
+        child: ClipRRect(
+          borderRadius: const BorderRadius.only(
+            bottomLeft: Radius.circular(16),
+            bottomRight: Radius.circular(16),
+          ),
+          child: AppBar(
+            title: const Text(
+              "Modul Pembelajaran",
+              style: TextStyle(color: Colors.white),
+            ),
+            backgroundColor: AppColors.primaryColor,
+            iconTheme: const IconThemeData(color: Colors.white),
+            elevation: 0,
+          ),
         ),
-        backgroundColor: AppColors.primaryColor,
-        iconTheme: const IconThemeData(color: Colors.white),
       ),
+
       backgroundColor: const Color(0xFFFFF7E6),
       body: Padding(
         padding: const EdgeInsets.all(16),
@@ -95,6 +107,9 @@ class _ExpandableModuleCardState extends State<ExpandableModuleCard> {
 
   @override
   Widget build(BuildContext context) {
+    final filteredLessons =
+        filterLessonByType(widget.module.lessonQuest ?? [], 2);
+
     return Container(
       margin: const EdgeInsets.only(bottom: 16),
       decoration: BoxDecoration(
@@ -196,16 +211,15 @@ class _ExpandableModuleCardState extends State<ExpandableModuleCard> {
                   bottom: Radius.circular(16),
                 ),
               ),
-              child: widget.module.lessonQuest != null &&
-                      widget.module.lessonQuest!.isNotEmpty
+              child: filteredLessons.isNotEmpty
                   ? SizedBox(
-                      height: 180, // tinggi area scroll
+                      height: 180,
                       child: ListView.separated(
-                        itemCount: widget.module.lessonQuest!.length,
+                        itemCount: filteredLessons.length,
                         separatorBuilder: (context, index) =>
                             const SizedBox(height: 8),
                         itemBuilder: (context, index) {
-                          final lesson = widget.module.lessonQuest![index];
+                          final lesson = filteredLessons[index];
                           return LessonCard(
                             title: lesson.titleLessonQuest,
                             description: lesson.questLessonDesc,
@@ -214,7 +228,7 @@ class _ExpandableModuleCardState extends State<ExpandableModuleCard> {
                       ),
                     )
                   : const Text(
-                      "Belum ada lesson untuk modul ini.",
+                      "Kamu belum menyelesaikan apapun.",
                       style: TextStyle(
                         fontSize: 12,
                         color: Colors.black87,

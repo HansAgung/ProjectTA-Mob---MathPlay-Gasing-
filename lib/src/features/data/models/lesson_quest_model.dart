@@ -4,6 +4,7 @@ class LessonQuestModel {
   final String titleLessonQuest;
   final String questLessonDesc;
   final int typeLessonQuest;
+  final String status;
 
   LessonQuestModel({
     required this.idLessonQuest,
@@ -11,6 +12,7 @@ class LessonQuestModel {
     required this.titleLessonQuest,
     required this.questLessonDesc,
     required this.typeLessonQuest,
+    required this.status,
   });
 
   factory LessonQuestModel.fromJson(Map<String, dynamic> json) {
@@ -20,6 +22,7 @@ class LessonQuestModel {
       titleLessonQuest: json['title_lesson_quest']?.toString() ?? '',
       questLessonDesc: json['quest_lesson_desc']?.toString() ?? '',
       typeLessonQuest: json['type_lesson_quest'] ?? 0,
+      status: json['status']?.toString() ?? '',
     );
   }
 
