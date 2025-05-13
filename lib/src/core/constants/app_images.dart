@@ -11,4 +11,7 @@ class AppImages {
   static const String QUESTION_BACKGROUND = "assets/images/question_bg_img.png";
   static const String PATTERN_SECOND = "assets/images/pattern_A.png";
   static const String PATTERN_THIRD= "assets/images/pattern_B.png";
+  static const String PATTERN_FOURTH= "assets/images/pattern_C.png";
+  static const String CARD_OFF= "assets/images/card-off.png";
+  static const String ASSET_IMAGES= "assets/images/character-04.png";
 }

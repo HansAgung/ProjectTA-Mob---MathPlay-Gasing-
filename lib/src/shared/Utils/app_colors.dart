@@ -6,4 +6,6 @@ class AppColors {
   static const Color fontDescColor = Color.fromARGB(255, 122, 120, 115);
   static const Color formBorderColor = Color(0xFFE6C887);
   static const Color secondaryColor = Color(0xFF2EC4B6);
+  static const Color greenDark = Color(0xFF2EC4B6);
+  static const Color greenLight = Color(0xFFCBF3F0); 
 }

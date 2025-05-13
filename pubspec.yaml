@@ -78,6 +78,7 @@ flutter:
     - assets/images/character-01.png
     - assets/images/character-02.png
     - assets/images/character-03.png
+    - assets/images/character-04.png
     - lib/src/features/data/datasources/character_user_data.json
     - assets/images/homepage_card.png
     - assets/images/asset_quest_1.png
@@ -90,6 +91,8 @@ flutter:
     - assets/images/question_bg_img.png
     - assets/images/pattern_A.png
     - assets/images/pattern_B.png
+    - assets/images/pattern_C.png
+    - assets/images/card-off.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
